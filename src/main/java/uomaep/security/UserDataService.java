@@ -16,6 +16,12 @@ public class UserDataService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDTO user = userDataMapper.findUserByEmail(username);
         if(user == null) throw new UsernameNotFoundException("Not found");
-        return new UserData(username, user.getPassword());
+        return new UserData(username, user.getPassword(), user);
+    }
+
+    public void saveRefreshTokenToDB(int id, String token) {
+        if(userDataMapper.updateRefreshToken(id, token) == 0) {
+            userDataMapper.saveRefreshToken(id, token);
+        }
     }
 }

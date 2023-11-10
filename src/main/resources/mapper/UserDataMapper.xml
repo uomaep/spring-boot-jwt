@@ -14,4 +14,12 @@
         select * from User where email = #{email};
     </select>
 
+    <update id="updateRefreshToken" >
+        update Token set refresh_token = #{token} where user_id = #{id};
+    </update>
+
+    <insert id="saveRefreshToken">
+        insert into Token(user_id, refresh_token)
+        values(#{id}, #{token});
+    </insert>
 </mapper>

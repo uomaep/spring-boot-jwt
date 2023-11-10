@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import uomaep.dto.UserDTO;
 
 import java.util.Collection;
 
@@ -12,10 +13,17 @@ import java.util.Collection;
 public class UserData implements UserDetails {
     private final String email;
     private final String password;
+    private UserDTO user;
 
     public UserData(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public UserData(String email, String password, UserDTO user) {
+        this.email = email;
+        this.password = password;
+        this.user = user;
     }
 
     @Override
@@ -51,5 +59,9 @@ public class UserData implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public int getUserId() {
+        return user.getId();
     }
 }

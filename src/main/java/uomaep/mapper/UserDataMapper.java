@@ -8,4 +8,8 @@ import uomaep.dto.UserDTO;
 @Repository
 public interface UserDataMapper {
     UserDTO findUserByEmail(String email);
+
+    void saveRefreshToken(int id, String token);
+
+    int updateRefreshToken(int id, String token);
 }

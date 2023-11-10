@@ -24,6 +24,9 @@ public class LoginAuthProvider implements AuthenticationProvider {
         String accessToken = "accessToken";
         String refreshToken = "refreshToken";
 
+        // encoded refreshToken save to db
+        userDataService.saveRefreshTokenToDB(userData.getUserId(), passwordEncoder.encode(refreshToken));
+
         return new LoginAuthToken(accessToken, refreshToken, userData);
     }
 
