@@ -2,10 +2,66 @@
 
 # Stack
 
-![](https://img.shields.io/badge/java_8-✓-blue.svg)
+![](https://img.shields.io/badge/java_17-✓-blue.svg)
 ![](https://img.shields.io/badge/spring_boot-✓-blue.svg)
+![](https://img.shields.io/badge/mybatis-✓-blue.svg)
+![](https://img.shields.io/badge/aws-✓-blue.svg)
+![](https://img.shields.io/badge/docker--compose-✓-blue.svg)
 ![](https://img.shields.io/badge/mysql-✓-blue.svg)
 ![](https://img.shields.io/badge/jwt-✓-blue.svg)
+
+# AWS
+
+- ubuntu freetier ec2
+
+# Docker Compose
+
+```
+aws/
+ │
+ └── ~/project
+     └── spring-boot-jwt
+         ├── mysql
+             ├── .env
+             └── docker-compose.yml
+```
+
+```docker-compose.yml
+# docker-compose.yml
+version: '3.8'
+services:
+  mysql:
+    container_name: blovi_dev_db
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "33306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+```
+
+```.env
+# .env
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
+```
+
+```shell
+sudo docker compose up -d #백그라운드 실행
+```
+
+### ec2 인스턴스 보안 설정에서 인바운드 규칙 설정
+- mysql 서버 port (docker-compose.yml에 설정한 port[33306])
+
 
 # File structure
 
@@ -62,6 +118,17 @@ spring-boot-jwt/
  └── settings.gradle
 ```
 
+### JWT
+- 인증에 필요한 정보들을 암호화시킨 JSON 토큰
+- JWT 토큰(Access Token)을 HTTP 헤더에 실어 서버가 클라이언트를 식별하는 방식
+- 토큰 내부에는 위변조 방지를 위해 개인키를 통한 전자서명도과 해당 사용자의 정보가 들어있음 &rarr; 사용자가 JWT를 서버로 전송하면 서버는 서명을 검증하는 과정을 거치게 되며 검증이 완료되면 요청한 응답을 돌려주는 방식
+- Access Token의 유효기간을 짧게 설정하여 혹여나 탈취 당하더라도 그 위험성을 낮출 수 있음.
+- Refresh Token은 Access Token이 만료되었을 경우 새로운 Access Token을 발급해주기 위해 사용하는 토큰, 보통 DB에 저장.
+
+&rarr; 즉, Access Token은 접근에 관여하는 토큰, Refresh Token은 재발급에 관여하는 토큰의 역할이다.
+
+
+
 # Spring Security Architecture
 
 ![image](https://github.com/uomaep/spring-boot-jwt/assets/114221785/c20d8709-28bf-4067-a9d5-6627cc39ef3a)
@@ -76,3 +143,11 @@ spring-boot-jwt/
 7. LoginAuthProvider은 UserData를 넘겨받고 사용자 정보를 비교한다.
 8. 인증이 완료되면 JWT access token과 refresh token을 발행하여 반환 (JWT 발행은 아직 미구현)
 
+### 스크린샷
+<img width="1352" alt="스크린샷 2023-11-11 오전 6 51 18" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/dd3e942d-0f14-4000-b8f0-a1dc55c353bd">
+
+#### DB에 저장되는 password는 email+password의 해시값, 그러니 비교도 그렇게..
+<img width="1008" alt="스크린샷 2023-11-11 오전 6 54 02" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/f04ea8ea-99b2-4779-ab81-9064b8d5046d">
+
+#### refresh token도 해싱해서 DB에 저장
+<img width="990" alt="스크린샷 2023-11-11 오전 6 56 00" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/9acf36f1-10b8-414d-9686-e06391a40b55">
