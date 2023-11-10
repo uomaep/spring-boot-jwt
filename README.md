@@ -144,7 +144,16 @@ spring-boot-jwt/
 8. 인증이 완료되면 JWT access token과 refresh token을 발행하여 반환 (JWT 발행은 아직 미구현)
 
 ### 스크린샷
-<img width="1352" alt="스크린샷 2023-11-11 오전 6 51 18" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/dd3e942d-0f14-4000-b8f0-a1dc55c353bd">
+<img width="648" alt="스크린샷 2023-11-11 오전 7 20 42" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/54de4356-fe19-4a3f-982f-82ade12a13f8">
+
+#### 로그인 성공 시
+<img width="450" alt="스크린샷 2023-11-11 오전 7 21 06" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/cbd6e9f3-11f3-40ad-9ae2-b090d29e6794">
+
+#### 로그인 실패 시
+<img width="465" alt="스크린샷 2023-11-11 오전 7 17 32" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/38234acd-c2c9-44af-aa77-8efa5c31ebfa">
+
+<img width="450" alt="스크린샷 2023-11-11 오전 7 21 39" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/337c064a-2a4c-4bd8-9a95-5c55c41c510c">
+
 
 #### DB에 저장되는 password는 email+password의 해시값, 그러니 비교도 그렇게..
 <img width="1008" alt="스크린샷 2023-11-11 오전 6 54 02" src="https://github.com/uomaep/spring-boot-jwt/assets/114221785/f04ea8ea-99b2-4779-ab81-9064b8d5046d">
