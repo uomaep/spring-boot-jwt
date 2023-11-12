@@ -31,7 +31,7 @@ aws/
 version: '3.8'
 services:
   mysql:
-    container_name: blovi_dev_db
+    container_name: springbootjwt_db
     image: mysql:latest
     restart: always
     environment:
